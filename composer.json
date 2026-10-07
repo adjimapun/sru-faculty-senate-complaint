@@ -1,0 +1,16 @@
+{
+  "name": "sru/faculty-senate-complaint",
+  "description": "Secure complaint management system for Faculty Senate, Suratthani Rajabhat University",
+  "type": "project",
+  "require": {
+    "php": "^8.2",
+    "ext-pdo": "*",
+    "ext-openssl": "*",
+    "phpmailer/phpmailer": "^6.9"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/"
+    }
+  }
+}
