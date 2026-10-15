@@ -3,136 +3,834 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>SRU Complaint System UI Demo</title>
+  <meta name="theme-color" content="#082e5b">
+  <title>ระบบรับเรื่องร้องเรียน | สภาคณาจารย์ มหาวิทยาลัยราชภัฏสุราษฎร์ธานี</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
+    :root{
+      --sru-blue:#082e5b;
+      --sru-blue-2:#0d4f91;
+      --sru-blue-3:#eaf3fc;
+      --sru-red:#c73532;
+      --sru-red-dark:#9f2725;
+      --ink:#243447;
+      --muted:#697789;
+      --line:#dce5ef;
+      --bg:#f5f8fc;
+      --white:#fff;
+      --success:#207a54;
+      --warning:#a66b05;
+      --shadow:0 12px 34px rgba(19,49,82,.09);
+      --radius:18px;
+    }
+
     *{box-sizing:border-box}
-    body{font-family:'Kanit',sans-serif;margin:0;background:#f4f7fb;color:#203040;font-weight:400}
-    button,input,select,textarea{font:inherit}
-    .top{background:linear-gradient(135deg,#07315f,#1673d1);color:#fff;padding:22px 0}
-    .wrap{width:min(1100px,calc(100% - 32px));margin:auto}
-    .brand{display:flex;align-items:center;gap:18px}
-    .brand-logo{width:86px;height:110px;object-fit:contain;filter:drop-shadow(0 4px 10px rgba(0,0,0,.18))}
-    .brand h1{margin:0;font-size:30px;font-weight:700;line-height:1.2}
-    .brand p{margin:6px 0 0;opacity:.92;font-size:17px;font-weight:400}
-    .tabs{display:flex;gap:8px;margin:20px 0}
-    .tabs button{border:0;padding:10px 16px;border-radius:9px;background:#e7eef7;color:#0b4fa2;font-weight:600;cursor:pointer}
-    .tabs button.active{background:#0b4fa2;color:#fff}
-    .panel{display:none}.panel.active{display:block}
-    .grid{display:grid;grid-template-columns:1fr 1.6fr;gap:20px}
-    .card{background:#fff;border:1px solid #dbe5f0;border-radius:18px;padding:22px;box-shadow:0 10px 30px #102a4310}
-    .card h2,.content h2{font-weight:700;margin-top:0}
-    .field{margin:13px 0}
-    .field label{font-weight:600;display:block;margin-bottom:6px}
-    .field input,.field select,.field textarea{width:100%;padding:12px;border:1px solid #ccd6e2;border-radius:10px;background:#fff;color:#203040}
-    .field textarea{height:120px;resize:vertical}
-    .btn{background:#0b4fa2;color:white;border:0;padding:12px 18px;border-radius:10px;font-weight:600;cursor:pointer}
-    .admin{display:grid;grid-template-columns:220px 1fr;min-height:620px;background:#fff;border-radius:18px;overflow:hidden;border:1px solid #dbe5f0}
-    .side{background:#092f59;color:#fff;padding:20px}
-    .side-brand{display:flex;align-items:center;gap:10px;margin-bottom:16px}
-    .side-logo{width:44px;height:56px;object-fit:contain}
-    .side h3{margin:0;font-size:18px;font-weight:600}
-    .side div.menu{padding:10px;border-radius:8px}
-    .side div.menu:first-of-type{background:#ffffff18}
-    .content{padding:22px}
-    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-    .stat{background:#f7faff;border:1px solid #dbe5f0;padding:15px;border-radius:12px}
-    .stat b{display:block;font-size:28px;color:#0b4fa2;font-weight:700}
-    table{width:100%;border-collapse:collapse}
-    th,td{padding:10px;border-bottom:1px solid #e9eef5;text-align:left}
-    th{font-weight:600}
-    .notice{background:#eef6ff;border-left:4px solid #1673d1;padding:14px;border-radius:10px}
-    @media(max-width:800px){
-      .grid,.admin{grid-template-columns:1fr}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--ink);
+      font-family:'Kanit',sans-serif;
+      font-weight:400;
+      line-height:1.65;
+    }
+
+    button,input,select,textarea,table{
+      font-family:'Kanit',sans-serif !important;
+    }
+
+    a{color:inherit}
+    .wrap{width:min(1180px,calc(100% - 32px));margin:auto}
+
+    .topline{
+      height:5px;
+      background:linear-gradient(90deg,var(--sru-blue) 0 72%,var(--sru-red) 72% 100%);
+    }
+
+    .official-header{
+      background:linear-gradient(135deg,#082e5b 0%,#0b3f78 65%,#123b69 100%);
+      color:#fff;
+      box-shadow:0 8px 28px rgba(6,35,70,.18);
+    }
+
+    .header-inner{
+      min-height:132px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      padding:20px 0;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:18px;
+      min-width:0;
+    }
+
+    .brand-logo{
+      width:88px;
+      height:108px;
+      object-fit:contain;
+      flex:0 0 auto;
+      filter:drop-shadow(0 5px 10px rgba(0,0,0,.22));
+    }
+
+    .brand-eyebrow{
+      font-size:14px;
+      opacity:.78;
+      letter-spacing:.02em;
+      margin-bottom:2px;
+    }
+
+    .brand h1{
+      margin:0;
+      font-size:30px;
+      font-weight:700;
+      line-height:1.25;
+    }
+
+    .brand p{
+      margin:4px 0 0;
+      font-size:18px;
+      font-weight:400;
+      opacity:.94;
+    }
+
+    .official-badge{
+      flex:0 0 auto;
+      border:1px solid rgba(255,255,255,.25);
+      background:rgba(255,255,255,.09);
+      padding:10px 15px;
+      border-radius:999px;
+      font-size:14px;
+      backdrop-filter:blur(4px);
+    }
+
+    .subnav{
+      background:#fff;
+      border-bottom:1px solid var(--line);
+    }
+
+    .subnav-inner{
+      min-height:54px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+    }
+
+    .system-title{
+      color:var(--sru-blue);
+      font-weight:600;
+      font-size:15px;
+    }
+
+    .privacy-chip{
+      color:var(--sru-red-dark);
+      background:#fff2f1;
+      border:1px solid #f5cfcd;
+      padding:6px 11px;
+      border-radius:999px;
+      font-size:13px;
+      font-weight:500;
+    }
+
+    .tabs{
+      display:flex;
+      gap:10px;
+      margin:24px 0 18px;
+    }
+
+    .tabs button{
+      border:1px solid var(--line);
+      padding:10px 18px;
+      border-radius:10px;
+      background:#fff;
+      color:var(--sru-blue);
+      font-weight:600;
+      cursor:pointer;
+      transition:.18s ease;
+    }
+
+    .tabs button:hover{border-color:#aac4df}
+    .tabs button.active{
+      color:#fff;
+      background:var(--sru-blue);
+      border-color:var(--sru-blue);
+      box-shadow:0 7px 16px rgba(8,46,91,.15);
+    }
+
+    .panel{display:none}
+    .panel.active{display:block}
+
+    .front-grid{
+      display:grid;
+      grid-template-columns:minmax(280px,.82fr) minmax(0,1.55fr);
+      gap:22px;
+      align-items:start;
+    }
+
+    .card{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .card-head{
+      padding:19px 22px;
+      border-bottom:1px solid #e9eef4;
+      background:linear-gradient(180deg,#fff,#fbfdff);
+    }
+
+    .card-head h2{
+      margin:0;
+      color:var(--sru-blue);
+      font-size:22px;
+      font-weight:700;
+    }
+
+    .card-head p{
+      margin:4px 0 0;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .card-body{padding:22px}
+
+    .notice{
+      border-left:4px solid var(--sru-blue-2);
+      background:#eef6ff;
+      color:#244567;
+      padding:14px 15px;
+      border-radius:10px;
+      font-size:14px;
+    }
+
+    .notice strong{color:var(--sru-blue)}
+
+    .notice-red{
+      margin-top:14px;
+      border-left-color:var(--sru-red);
+      background:#fff3f2;
+      color:#70413e;
+    }
+
+    .guide-list{
+      margin:17px 0 0;
+      padding:0;
+      list-style:none;
+      display:grid;
+      gap:10px;
+    }
+
+    .guide-list li{
+      display:grid;
+      grid-template-columns:32px 1fr;
+      gap:10px;
+      align-items:start;
+      color:#42566b;
+    }
+
+    .guide-no{
+      width:30px;height:30px;
+      display:grid;place-items:center;
+      border-radius:9px;
+      background:var(--sru-blue-3);
+      color:var(--sru-blue);
+      font-weight:700;
+      font-size:13px;
+    }
+
+    .pdpa-box{
+      margin-top:20px;
+      padding:15px;
+      border:1px solid #efd2d0;
+      border-radius:12px;
+      background:#fff9f8;
+    }
+
+    .pdpa-box h3{
+      margin:0 0 6px;
+      color:var(--sru-red-dark);
+      font-size:16px;
+    }
+
+    .pdpa-box p{
+      margin:0;
+      color:#6c5553;
+      font-size:13px;
+    }
+
+    .form-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:0 16px;
+    }
+
+    .field{margin:0 0 16px}
+    .field.full{grid-column:1/-1}
+
+    .field label{
+      display:block;
+      margin-bottom:7px;
+      font-weight:600;
+      color:#293d51;
+    }
+
+    .required{color:var(--sru-red)}
+
+    .field input,.field select,.field textarea{
+      width:100%;
+      border:1px solid #cfd9e4;
+      background:#fff;
+      color:var(--ink);
+      border-radius:10px;
+      padding:12px 13px;
+      outline:none;
+      transition:.18s ease;
+      font-size:15px;
+    }
+
+    .field input:focus,.field select:focus,.field textarea:focus{
+      border-color:#6da3d4;
+      box-shadow:0 0 0 4px rgba(27,95,160,.09);
+    }
+
+    .field textarea{
+      min-height:145px;
+      resize:vertical;
+    }
+
+    .help{
+      display:block;
+      color:#7b8795;
+      font-size:12.5px;
+      margin-top:5px;
+    }
+
+    .contact-warning{
+      grid-column:1/-1;
+      padding:12px 14px;
+      border-radius:10px;
+      background:#fff7ed;
+      border:1px solid #f6ddba;
+      color:#76511a;
+      font-size:13px;
+      margin-bottom:14px;
+    }
+
+    .consent{
+      grid-column:1/-1;
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      background:#f7f9fc;
+      border:1px solid var(--line);
+      padding:14px;
+      border-radius:11px;
+      margin:1px 0 18px;
+      font-size:13.5px;
+    }
+
+    .consent input{
+      margin-top:5px;
+      accent-color:var(--sru-blue);
+    }
+
+    .actions{
+      grid-column:1/-1;
+      display:flex;
+      justify-content:flex-end;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      border:0;
+      border-radius:10px;
+      padding:11px 18px;
+      font-weight:600;
+      cursor:pointer;
+    }
+
+    .btn-primary{
+      background:var(--sru-blue);
+      color:#fff;
+      box-shadow:0 8px 18px rgba(8,46,91,.16);
+    }
+
+    .btn-secondary{
+      background:#eef2f7;
+      color:#4f6073;
+    }
+
+    .admin-shell{
+      display:grid;
+      grid-template-columns:245px 1fr;
+      min-height:690px;
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      overflow:hidden;
+      box-shadow:var(--shadow);
+    }
+
+    .sidebar{
+      background:linear-gradient(180deg,#082e5b,#0a396d);
+      color:#fff;
+      padding:20px 16px;
+    }
+
+    .side-brand{
+      display:flex;
+      align-items:center;
+      gap:11px;
+      padding:3px 5px 18px;
+      border-bottom:1px solid rgba(255,255,255,.13);
+      margin-bottom:15px;
+    }
+
+    .side-logo{width:46px;height:58px;object-fit:contain}
+    .side-brand strong{font-size:16px;line-height:1.2}
+    .side-brand small{display:block;opacity:.66;font-size:11px;margin-top:3px}
+
+    .menu{
+      padding:10px 12px;
+      border-radius:9px;
+      margin:4px 0;
+      font-size:14px;
+      cursor:pointer;
+      opacity:.88;
+    }
+
+    .menu.active{
+      background:#fff;
+      color:var(--sru-blue);
+      font-weight:600;
+      position:relative;
+    }
+
+    .menu.active:before{
+      content:"";
+      position:absolute;
+      left:-16px;top:7px;bottom:7px;
+      width:4px;
+      background:var(--sru-red);
+      border-radius:0 4px 4px 0;
+    }
+
+    .admin-content{
+      padding:24px;
+      min-width:0;
+      background:#fbfcfe;
+    }
+
+    .admin-top{
+      display:flex;
+      align-items:start;
+      justify-content:space-between;
+      gap:14px;
+      margin-bottom:20px;
+    }
+
+    .admin-top h2{
+      margin:0;
+      color:var(--sru-blue);
+      font-size:24px;
+    }
+
+    .admin-top p{
+      margin:3px 0 0;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .user-badge{
+      background:#fff;
+      border:1px solid var(--line);
+      padding:8px 12px;
+      border-radius:10px;
+      font-size:13px;
+      color:#526477;
+    }
+
+    .stats{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:13px;
+      margin-bottom:22px;
+    }
+
+    .stat{
+      position:relative;
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:16px 17px;
+      overflow:hidden;
+    }
+
+    .stat:after{
+      content:"";
+      position:absolute;
+      left:0;top:0;bottom:0;
+      width:4px;
+      background:var(--sru-blue-2);
+    }
+
+    .stat.red:after{background:var(--sru-red)}
+    .stat.green:after{background:var(--success)}
+    .stat.gold:after{background:#c68b21}
+
+    .stat-label{font-size:13px;color:var(--muted)}
+    .stat b{
+      display:block;
+      font-size:30px;
+      line-height:1.2;
+      color:var(--sru-blue);
+      font-weight:700;
+      margin-top:3px;
+    }
+
+    .table-card{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:14px;
+      overflow:hidden;
+    }
+
+    .table-card-head{
+      padding:15px 17px;
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      border-bottom:1px solid var(--line);
+    }
+
+    .table-card-head h3{margin:0;color:var(--sru-blue);font-size:17px}
+    .table-card-head span{font-size:12px;color:var(--muted)}
+
+    .table-scroll{overflow:auto}
+    table{width:100%;border-collapse:collapse;min-width:680px}
+    th,td{
+      padding:12px 14px;
+      text-align:left;
+      border-bottom:1px solid #edf1f5;
+      font-size:13.5px;
+    }
+    th{
+      color:#5b6978;
+      background:#f8fafc;
+      font-weight:600;
+    }
+
+    .status{
+      display:inline-flex;
+      align-items:center;
+      padding:4px 9px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:500;
+    }
+
+    .status-new{background:#fff0ef;color:#aa2e2b}
+    .status-review{background:#fff7e8;color:#8b5b05}
+    .status-done{background:#eaf7f0;color:#256849}
+
+    footer{
+      margin-top:28px;
+      background:#06284f;
+      color:#dbe7f3;
+      border-top:4px solid var(--sru-red);
+    }
+
+    .footer-inner{
+      padding:23px 0;
+      display:flex;
+      justify-content:space-between;
+      gap:28px;
+      align-items:center;
+    }
+
+    .footer-brand{
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+
+    .footer-logo{width:45px;height:56px;object-fit:contain}
+    .footer-brand strong{display:block;color:#fff}
+    .footer-brand small{opacity:.75}
+    .footer-meta{text-align:right;font-size:12.5px;opacity:.78}
+
+    @media(max-width:900px){
+      .front-grid{grid-template-columns:1fr}
+      .admin-shell{grid-template-columns:1fr}
+      .sidebar{display:none}
       .stats{grid-template-columns:1fr 1fr}
-      .brand-logo{width:68px;height:86px}
-      .brand h1{font-size:24px}
-      .side{display:none}
+      .official-badge{display:none}
+    }
+
+    @media(max-width:620px){
+      .wrap{width:min(100% - 22px,1180px)}
+      .header-inner{min-height:112px}
+      .brand-logo{width:64px;height:82px}
+      .brand h1{font-size:22px}
+      .brand p{font-size:15px}
+      .brand-eyebrow{font-size:12px}
+      .subnav-inner{align-items:flex-start;flex-direction:column;padding:10px 0}
+      .tabs{overflow:auto}
+      .form-grid{grid-template-columns:1fr}
+      .field.full,.contact-warning,.consent,.actions{grid-column:auto}
+      .stats{grid-template-columns:1fr}
+      .admin-top{flex-direction:column}
+      .footer-inner{align-items:flex-start;flex-direction:column}
+      .footer-meta{text-align:left}
     }
   </style>
 </head>
+
 <body>
-  <header class="top">
-    <div class="wrap brand">
-      <img class="brand-logo" src="https://sru.ac.th/wp-content/uploads/2022/08/logo-sru-png.png" alt="ตรามหาวิทยาลัยราชภัฏสุราษฎร์ธานี">
-      <div>
-        <h1>ระบบรับเรื่องร้องเรียน สภาคณาจารย์</h1>
-        <p>มหาวิทยาลัยราชภัฏสุราษฎร์ธานี</p>
+  <div class="topline"></div>
+
+  <header class="official-header">
+    <div class="wrap header-inner">
+      <div class="brand">
+        <img class="brand-logo" src="https://sru.ac.th/wp-content/uploads/2022/08/logo-sru-png.png" alt="ตรามหาวิทยาลัยราชภัฏสุราษฎร์ธานี">
+        <div>
+          <div class="brand-eyebrow">ระบบบริการอิเล็กทรอนิกส์ของหน่วยงาน</div>
+          <h1>ระบบรับเรื่องร้องเรียน สภาคณาจารย์</h1>
+          <p>มหาวิทยาลัยราชภัฏสุราษฎร์ธานี</p>
+        </div>
       </div>
+      <div class="official-badge">SURATTHANI RAJABHAT UNIVERSITY</div>
     </div>
   </header>
 
+  <div class="subnav">
+    <div class="wrap subnav-inner">
+      <div class="system-title">ช่องทางรับเรื่องร้องเรียนและข้อเสนอแนะอย่างเป็นระบบ</div>
+      <div class="privacy-chip">คุ้มครองข้อมูลส่วนบุคคล • PDPA</div>
+    </div>
+  </div>
+
   <main class="wrap">
-    <div class="tabs">
-      <button class="active" data-t="front">หน้าบ้าน</button>
-      <button data-t="admin">หลังบ้าน</button>
+    <div class="tabs" aria-label="ตัวอย่างหน้าจอ">
+      <button class="active" data-t="front">หน้าบ้านสำหรับผู้ร้องเรียน</button>
+      <button data-t="admin">ระบบหลังบ้านสำหรับเจ้าหน้าที่</button>
     </div>
 
     <section id="front" class="panel active">
-      <div class="grid">
-        <div class="card">
-          <h2>คำชี้แจงการใช้งาน</h2>
-          <div class="notice">กรุณากรอกข้อมูลตามความเป็นจริง โดยเฉพาะเบอร์โทรศัพท์และอีเมลที่ประสงค์ให้ติดต่อกลับ ข้อมูลส่วนบุคคลสำคัญจะถูกจัดเก็บแบบเข้ารหัส</div>
-          <ul>
-            <li>ตรวจสอบเลขบัตรประชาชน 13 หลัก</li>
-            <li>แยกประเภทเรื่องร้องเรียน</li>
-            <li>แจ้งคณะกรรมการตามประเภทเรื่อง</li>
-            <li>แสดงเลขที่เรื่องหลังส่งสำเร็จ</li>
-          </ul>
-        </div>
+      <div class="front-grid">
 
-        <div class="card">
-          <h2>แบบฟอร์มรับเรื่องร้องเรียน</h2>
-          <div class="field"><label>เลขบัตรประชาชน 13 หลัก</label><input value="1XXXXXXXXXXXX"></div>
-          <div class="field"><label>คำนำหน้าชื่อ-สกุล</label><input value="นาย ตัวอย่าง ผู้ร้องเรียน"></div>
-          <div class="field"><label>ประเภทเรื่อง</label><select><option>ด้านการบริหารและธรรมาภิบาล</option></select></div>
-          <div class="field"><label>รายละเอียดเรื่องร้องเรียน</label><textarea>โปรดระบุรายละเอียดของเรื่องร้องเรียน...</textarea></div>
-          <div class="field"><label>หมายเลขโทรศัพท์</label><input value="08XXXXXXXX"></div>
-          <div class="field"><label>อีเมล</label><input value="example@sru.ac.th"></div>
-          <button class="btn">ส่งเรื่องร้องเรียนอย่างปลอดภัย</button>
-        </div>
+        <aside class="card">
+          <div class="card-head">
+            <h2>คำชี้แจงการใช้งาน</h2>
+            <p>โปรดอ่านก่อนส่งเรื่องร้องเรียน</p>
+          </div>
+          <div class="card-body">
+            <div class="notice">
+              <strong>กรุณากรอกข้อมูลตามความเป็นจริง</strong><br>
+              ระบบใช้ข้อมูลเพื่อการตรวจสอบข้อเท็จจริง การประสานงาน และการติดต่อกลับเกี่ยวกับเรื่องร้องเรียนเท่านั้น
+            </div>
+
+            <ul class="guide-list">
+              <li><span class="guide-no">1</span><span>กรอกเลขบัตรประชาชน 13 หลัก ระบบจะตรวจสอบความถูกต้องตามหลัก checksum</span></li>
+              <li><span class="guide-no">2</span><span>ระบุคำนำหน้าชื่อ-สกุล รายละเอียด และประเภทเรื่องร้องเรียนให้ครบถ้วน</span></li>
+              <li><span class="guide-no">3</span><span>กรอกหมายเลขโทรศัพท์และอีเมลจริงที่ประสงค์ให้เจ้าหน้าที่ติดต่อกลับ</span></li>
+              <li><span class="guide-no">4</span><span>เมื่อส่งสำเร็จ ระบบจะแสดงเลขที่เรื่องเพื่อใช้ในการอ้างอิง</span></li>
+            </ul>
+
+            <div class="notice notice-red">
+              ไม่ควรเปิดเผยรหัสผ่าน เลขบัญชีธนาคาร OTP หรือข้อมูลลับอื่นที่ไม่เกี่ยวข้องกับเรื่องร้องเรียน
+            </div>
+
+            <div class="pdpa-box">
+              <h3>การคุ้มครองข้อมูลส่วนบุคคล</h3>
+              <p>ข้อมูลส่วนบุคคลสำคัญจะได้รับการจัดเก็บและประมวลผลภายใต้มาตรการด้านความปลอดภัยของระบบ และจำกัดการเข้าถึงเฉพาะผู้มีหน้าที่เกี่ยวข้อง</p>
+            </div>
+          </div>
+        </aside>
+
+        <section class="card">
+          <div class="card-head">
+            <h2>แบบฟอร์มรับเรื่องร้องเรียน</h2>
+            <p>ช่องที่มีเครื่องหมาย <span class="required">*</span> เป็นข้อมูลที่จำเป็น</p>
+          </div>
+
+          <div class="card-body">
+            <div class="form-grid">
+              <div class="field">
+                <label>เลขบัตรประชาชน 13 หลัก <span class="required">*</span></label>
+                <input inputmode="numeric" value="1XXXXXXXXXXXX" aria-label="เลขบัตรประชาชน">
+                <small class="help">ตรวจสอบรูปแบบและ checksum ทั้งฝั่งผู้ใช้และฝั่งเซิร์ฟเวอร์</small>
+              </div>
+
+              <div class="field">
+                <label>คำนำหน้าชื่อ-สกุล <span class="required">*</span></label>
+                <input value="นาย ตัวอย่าง ผู้ร้องเรียน" aria-label="คำนำหน้าชื่อ-สกุล">
+              </div>
+
+              <div class="field full">
+                <label>ประเภทเรื่องร้องเรียน <span class="required">*</span></label>
+                <select>
+                  <option>ด้านการบริหารและธรรมาภิบาล</option>
+                  <option>ด้านบุคลากรและสวัสดิการ</option>
+                  <option>ด้านวิชาการ</option>
+                  <option>อื่น ๆ</option>
+                </select>
+              </div>
+
+              <div class="field full">
+                <label>รายละเอียดเรื่องร้องเรียน <span class="required">*</span></label>
+                <textarea>โปรดระบุข้อเท็จจริง เหตุการณ์ วันเวลา สถานที่ หรือข้อมูลที่เกี่ยวข้องอย่างชัดเจน...</textarea>
+              </div>
+
+              <div class="contact-warning">
+                <strong>หมายเหตุ:</strong> หมายเลขโทรศัพท์และอีเมลต้องเป็นข้อมูลจริงที่ท่านประสงค์ให้เจ้าหน้าที่ใช้สำหรับติดต่อกลับ
+              </div>
+
+              <div class="field">
+                <label>หมายเลขโทรศัพท์ <span class="required">*</span></label>
+                <input value="08XXXXXXXX" inputmode="tel">
+              </div>
+
+              <div class="field">
+                <label>อีเมล <span class="required">*</span></label>
+                <input value="example@sru.ac.th" inputmode="email">
+              </div>
+
+              <label class="consent">
+                <input type="checkbox" checked>
+                <span>ข้าพเจ้ายืนยันว่าข้อมูลที่ให้ไว้เป็นข้อมูลจริง และรับทราบการนำข้อมูลไปใช้เพื่อดำเนินการเกี่ยวกับเรื่องร้องเรียนและการติดต่อกลับตามวัตถุประสงค์ของระบบ</span>
+              </label>
+
+              <div class="actions">
+                <button class="btn btn-secondary" type="button">ล้างข้อมูล</button>
+                <button class="btn btn-primary" type="button">ส่งเรื่องร้องเรียนอย่างปลอดภัย</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
       </div>
     </section>
 
     <section id="admin" class="panel">
-      <div class="admin">
-        <aside class="side">
+      <div class="admin-shell">
+        <aside class="sidebar">
           <div class="side-brand">
-            <img class="side-logo" src="https://sru.ac.th/wp-content/uploads/2022/08/logo-sru-png.png" alt="ตรามหาวิทยาลัยราชภัฏสุราษฎร์ธานี">
-            <h3>SRU Complaint</h3>
+            <img class="side-logo" src="https://sru.ac.th/wp-content/uploads/2022/08/logo-sru-png.png" alt="ตรามหาวิทยาลัย">
+            <div>
+              <strong>SRU Complaint</strong>
+              <small>ระบบบริหารจัดการ</small>
+            </div>
           </div>
-          <div class="menu">ภาพรวม</div>
+
+          <div class="menu active">ภาพรวมระบบ</div>
           <div class="menu">เรื่องร้องเรียน</div>
           <div class="menu">ประเภทเรื่องร้องเรียน</div>
-          <div class="menu">อีเมลผู้รับผิดชอบ</div>
+          <div class="menu">อีเมลคณะกรรมการ</div>
           <div class="menu">ผู้ดูแลระบบ</div>
+          <div class="menu">บันทึกการใช้งาน</div>
         </aside>
-        <div class="content">
-          <h2>ภาพรวมระบบ</h2>
-          <div class="stats">
-            <div class="stat">ทั้งหมด<b>128</b></div>
-            <div class="stat">เรื่องใหม่<b>12</b></div>
-            <div class="stat">กำลังตรวจสอบ<b>19</b></div>
-            <div class="stat">ดำเนินการแล้ว<b>97</b></div>
+
+        <div class="admin-content">
+          <div class="admin-top">
+            <div>
+              <h2>ภาพรวมระบบรับเรื่องร้องเรียน</h2>
+              <p>สรุปสถานะเรื่องร้องเรียนและรายการล่าสุดสำหรับผู้ดูแลระบบ</p>
+            </div>
+            <div class="user-badge">ผู้ดูแลระบบ • Super Admin</div>
           </div>
-          <h3>รายการล่าสุด</h3>
-          <table>
-            <tr><th>เลขที่เรื่อง</th><th>ประเภท</th><th>สถานะ</th></tr>
-            <tr><td>SC-20261008-A1B2C3</td><td>ด้านวิชาการ</td><td>new</td></tr>
-            <tr><td>SC-20261007-D4E5F6</td><td>ด้านบุคลากรและสวัสดิการ</td><td>in_review</td></tr>
-          </table>
+
+          <div class="stats">
+            <div class="stat"><span class="stat-label">เรื่องทั้งหมด</span><b>128</b></div>
+            <div class="stat red"><span class="stat-label">เรื่องใหม่</span><b>12</b></div>
+            <div class="stat gold"><span class="stat-label">กำลังตรวจสอบ</span><b>19</b></div>
+            <div class="stat green"><span class="stat-label">ดำเนินการแล้ว</span><b>97</b></div>
+          </div>
+
+          <div class="table-card">
+            <div class="table-card-head">
+              <h3>รายการเรื่องร้องเรียนล่าสุด</h3>
+              <span>ข้อมูลตัวอย่างสำหรับ UI</span>
+            </div>
+
+            <div class="table-scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th>เลขที่เรื่อง</th>
+                    <th>วันที่รับเรื่อง</th>
+                    <th>ประเภท</th>
+                    <th>สถานะ</th>
+                    <th>ผู้รับผิดชอบ</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>SC-20261016-A1B2C3</td>
+                    <td>16 ต.ค. 2569</td>
+                    <td>ด้านวิชาการ</td>
+                    <td><span class="status status-new">เรื่องใหม่</span></td>
+                    <td>คณะกรรมการที่เกี่ยวข้อง</td>
+                  </tr>
+                  <tr>
+                    <td>SC-20261015-D4E5F6</td>
+                    <td>15 ต.ค. 2569</td>
+                    <td>ด้านบุคลากรและสวัสดิการ</td>
+                    <td><span class="status status-review">กำลังตรวจสอบ</span></td>
+                    <td>คณะกรรมการที่เกี่ยวข้อง</td>
+                  </tr>
+                  <tr>
+                    <td>SC-20261014-G7H8J9</td>
+                    <td>14 ต.ค. 2569</td>
+                    <td>ด้านการบริหารและธรรมาภิบาล</td>
+                    <td><span class="status status-done">ดำเนินการแล้ว</span></td>
+                    <td>ผู้ดูแลระบบ</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
+  <footer>
+    <div class="wrap footer-inner">
+      <div class="footer-brand">
+        <img class="footer-logo" src="https://sru.ac.th/wp-content/uploads/2022/08/logo-sru-png.png" alt="ตรามหาวิทยาลัย">
+        <div>
+          <strong>สภาคณาจารย์ มหาวิทยาลัยราชภัฏสุราษฎร์ธานี</strong>
+          <small>ระบบรับเรื่องร้องเรียนและข้อเสนอแนะ</small>
+        </div>
+      </div>
+
+      <div class="footer-meta">
+        Prototype UI • ฟอนต์ Kanit ทั้งระบบ<br>
+        ออกแบบโดยคำนึงถึงความปลอดภัยและการคุ้มครองข้อมูลส่วนบุคคล
+      </div>
+    </div>
+  </footer>
+
   <script>
-    document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{
-      document.querySelectorAll('.tabs button,.panel').forEach(x=>x.classList.remove('active'));
-      b.classList.add('active');
-      document.getElementById(b.dataset.t).classList.add('active');
+    document.querySelectorAll('.tabs button').forEach(button=>{
+      button.addEventListener('click',()=>{
+        document.querySelectorAll('.tabs button,.panel').forEach(item=>item.classList.remove('active'));
+        button.classList.add('active');
+        document.getElementById(button.dataset.t).classList.add('active');
+      });
     });
   </script>
 </body>
