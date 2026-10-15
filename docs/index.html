@@ -1,1 +1,139 @@
-<!doctype html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SRU Complaint System UI Demo</title><style>body{font-family:system-ui;margin:0;background:#f4f7fb;color:#203040}.top{background:linear-gradient(135deg,#07315f,#1673d1);color:#fff;padding:28px}.wrap{width:min(1100px,calc(100% - 32px));margin:auto}.tabs{display:flex;gap:8px;margin:20px 0}.tabs button{border:0;padding:10px 14px;border-radius:9px;background:#e7eef7;color:#0b4fa2;font-weight:700}.tabs button.active{background:#0b4fa2;color:#fff}.panel{display:none}.panel.active{display:block}.grid{display:grid;grid-template-columns:1fr 1.6fr;gap:20px}.card{background:#fff;border:1px solid #dbe5f0;border-radius:18px;padding:22px;box-shadow:0 10px 30px #102a4310}.field{margin:13px 0}.field label{font-weight:700;display:block;margin-bottom:6px}.field input,.field select,.field textarea{width:100%;box-sizing:border-box;padding:12px;border:1px solid #ccd6e2;border-radius:10px}.field textarea{height:120px}.btn{background:#0b4fa2;color:white;border:0;padding:12px 18px;border-radius:10px;font-weight:700}.admin{display:grid;grid-template-columns:220px 1fr;min-height:620px;background:#fff;border-radius:18px;overflow:hidden;border:1px solid #dbe5f0}.side{background:#092f59;color:#fff;padding:20px}.side div{padding:10px;border-radius:8px}.side div:first-of-type{background:#ffffff18}.content{padding:22px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.stat{background:#f7faff;border:1px solid #dbe5f0;padding:15px;border-radius:12px}.stat b{display:block;font-size:28px;color:#0b4fa2}table{width:100%;border-collapse:collapse}th,td{padding:10px;border-bottom:1px solid #e9eef5;text-align:left}.notice{background:#eef6ff;border-left:4px solid #1673d1;padding:14px;border-radius:10px}@media(max-width:800px){.grid,.admin{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}}</style></head><body><div class="top"><div class="wrap"><h1>SRU Complaint System — UI Demo</h1><div>สภาคณาจารย์ มหาวิทยาลัยราชภัฏสุราษฎร์ธานี</div></div></div><div class="wrap"><div class="tabs"><button class="active" data-t="front">หน้าบ้าน</button><button data-t="admin">หลังบ้าน</button></div><section id="front" class="panel active"><div class="grid"><div class="card"><h2>คำชี้แจงการใช้งาน</h2><div class="notice">กรุณากรอกข้อมูลตามความเป็นจริง โดยเฉพาะเบอร์โทรศัพท์และอีเมลที่ประสงค์ให้ติดต่อกลับ ข้อมูลส่วนบุคคลสำคัญจะถูกจัดเก็บแบบเข้ารหัส</div><ul><li>ตรวจสอบเลขบัตรประชาชน 13 หลัก</li><li>แยกประเภทเรื่องร้องเรียน</li><li>แจ้งคณะกรรมการตามประเภทเรื่อง</li><li>แสดงเลขที่เรื่องหลังส่งสำเร็จ</li></ul></div><div class="card"><h2>แบบฟอร์มรับเรื่องร้องเรียน</h2><div class="field"><label>เลขบัตรประชาชน 13 หลัก</label><input value="1XXXXXXXXXXXX"></div><div class="field"><label>ชื่อ–สกุล</label><input value="ตัวอย่าง ผู้ร้องเรียน"></div><div class="field"><label>ประเภทเรื่อง</label><select><option>ด้านการบริหารและธรรมาภิบาล</option></select></div><div class="field"><label>รายละเอียดเรื่องร้องเรียน</label><textarea>โปรดระบุรายละเอียดของเรื่องร้องเรียน...</textarea></div><div class="field"><label>หมายเลขโทรศัพท์</label><input value="08XXXXXXXX"></div><div class="field"><label>อีเมล</label><input value="example@sru.ac.th"></div><button class="btn">ส่งเรื่องร้องเรียนอย่างปลอดภัย</button></div></div></section><section id="admin" class="panel"><div class="admin"><div class="side"><h3>SRU Complaint</h3><div>ภาพรวม</div><div>เรื่องร้องเรียน</div><div>ประเภทเรื่องร้องเรียน</div><div>อีเมลผู้รับผิดชอบ</div><div>ผู้ดูแลระบบ</div></div><div class="content"><h2>ภาพรวมระบบ</h2><div class="stats"><div class="stat">ทั้งหมด<b>128</b></div><div class="stat">เรื่องใหม่<b>12</b></div><div class="stat">กำลังตรวจสอบ<b>19</b></div><div class="stat">ดำเนินการแล้ว<b>97</b></div></div><h3>รายการล่าสุด</h3><table><tr><th>เลขที่เรื่อง</th><th>ประเภท</th><th>สถานะ</th></tr><tr><td>SC-20261008-A1B2C3</td><td>ด้านวิชาการ</td><td>new</td></tr><tr><td>SC-20261007-D4E5F6</td><td>ด้านบุคลากรและสวัสดิการ</td><td>in_review</td></tr></table></div></div></section></div><script>document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tabs button,.panel').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById(b.dataset.t).classList.add('active')})</script></body></html>
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>SRU Complaint System UI Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box}
+    body{font-family:'Kanit',sans-serif;margin:0;background:#f4f7fb;color:#203040;font-weight:400}
+    button,input,select,textarea{font:inherit}
+    .top{background:linear-gradient(135deg,#07315f,#1673d1);color:#fff;padding:22px 0}
+    .wrap{width:min(1100px,calc(100% - 32px));margin:auto}
+    .brand{display:flex;align-items:center;gap:18px}
+    .brand-logo{width:86px;height:110px;object-fit:contain;filter:drop-shadow(0 4px 10px rgba(0,0,0,.18))}
+    .brand h1{margin:0;font-size:30px;font-weight:700;line-height:1.2}
+    .brand p{margin:6px 0 0;opacity:.92;font-size:17px;font-weight:400}
+    .tabs{display:flex;gap:8px;margin:20px 0}
+    .tabs button{border:0;padding:10px 16px;border-radius:9px;background:#e7eef7;color:#0b4fa2;font-weight:600;cursor:pointer}
+    .tabs button.active{background:#0b4fa2;color:#fff}
+    .panel{display:none}.panel.active{display:block}
+    .grid{display:grid;grid-template-columns:1fr 1.6fr;gap:20px}
+    .card{background:#fff;border:1px solid #dbe5f0;border-radius:18px;padding:22px;box-shadow:0 10px 30px #102a4310}
+    .card h2,.content h2{font-weight:700;margin-top:0}
+    .field{margin:13px 0}
+    .field label{font-weight:600;display:block;margin-bottom:6px}
+    .field input,.field select,.field textarea{width:100%;padding:12px;border:1px solid #ccd6e2;border-radius:10px;background:#fff;color:#203040}
+    .field textarea{height:120px;resize:vertical}
+    .btn{background:#0b4fa2;color:white;border:0;padding:12px 18px;border-radius:10px;font-weight:600;cursor:pointer}
+    .admin{display:grid;grid-template-columns:220px 1fr;min-height:620px;background:#fff;border-radius:18px;overflow:hidden;border:1px solid #dbe5f0}
+    .side{background:#092f59;color:#fff;padding:20px}
+    .side-brand{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+    .side-logo{width:44px;height:56px;object-fit:contain}
+    .side h3{margin:0;font-size:18px;font-weight:600}
+    .side div.menu{padding:10px;border-radius:8px}
+    .side div.menu:first-of-type{background:#ffffff18}
+    .content{padding:22px}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+    .stat{background:#f7faff;border:1px solid #dbe5f0;padding:15px;border-radius:12px}
+    .stat b{display:block;font-size:28px;color:#0b4fa2;font-weight:700}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:10px;border-bottom:1px solid #e9eef5;text-align:left}
+    th{font-weight:600}
+    .notice{background:#eef6ff;border-left:4px solid #1673d1;padding:14px;border-radius:10px}
+    @media(max-width:800px){
+      .grid,.admin{grid-template-columns:1fr}
+      .stats{grid-template-columns:1fr 1fr}
+      .brand-logo{width:68px;height:86px}
+      .brand h1{font-size:24px}
+      .side{display:none}
+    }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="wrap brand">
+      <img class="brand-logo" src="https://sru.ac.th/wp-content/uploads/2022/08/logo-sru-png.png" alt="ตรามหาวิทยาลัยราชภัฏสุราษฎร์ธานี">
+      <div>
+        <h1>ระบบรับเรื่องร้องเรียน สภาคณาจารย์</h1>
+        <p>มหาวิทยาลัยราชภัฏสุราษฎร์ธานี</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="tabs">
+      <button class="active" data-t="front">หน้าบ้าน</button>
+      <button data-t="admin">หลังบ้าน</button>
+    </div>
+
+    <section id="front" class="panel active">
+      <div class="grid">
+        <div class="card">
+          <h2>คำชี้แจงการใช้งาน</h2>
+          <div class="notice">กรุณากรอกข้อมูลตามความเป็นจริง โดยเฉพาะเบอร์โทรศัพท์และอีเมลที่ประสงค์ให้ติดต่อกลับ ข้อมูลส่วนบุคคลสำคัญจะถูกจัดเก็บแบบเข้ารหัส</div>
+          <ul>
+            <li>ตรวจสอบเลขบัตรประชาชน 13 หลัก</li>
+            <li>แยกประเภทเรื่องร้องเรียน</li>
+            <li>แจ้งคณะกรรมการตามประเภทเรื่อง</li>
+            <li>แสดงเลขที่เรื่องหลังส่งสำเร็จ</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h2>แบบฟอร์มรับเรื่องร้องเรียน</h2>
+          <div class="field"><label>เลขบัตรประชาชน 13 หลัก</label><input value="1XXXXXXXXXXXX"></div>
+          <div class="field"><label>คำนำหน้าชื่อ-สกุล</label><input value="นาย ตัวอย่าง ผู้ร้องเรียน"></div>
+          <div class="field"><label>ประเภทเรื่อง</label><select><option>ด้านการบริหารและธรรมาภิบาล</option></select></div>
+          <div class="field"><label>รายละเอียดเรื่องร้องเรียน</label><textarea>โปรดระบุรายละเอียดของเรื่องร้องเรียน...</textarea></div>
+          <div class="field"><label>หมายเลขโทรศัพท์</label><input value="08XXXXXXXX"></div>
+          <div class="field"><label>อีเมล</label><input value="example@sru.ac.th"></div>
+          <button class="btn">ส่งเรื่องร้องเรียนอย่างปลอดภัย</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="admin" class="panel">
+      <div class="admin">
+        <aside class="side">
+          <div class="side-brand">
+            <img class="side-logo" src="https://sru.ac.th/wp-content/uploads/2022/08/logo-sru-png.png" alt="ตรามหาวิทยาลัยราชภัฏสุราษฎร์ธานี">
+            <h3>SRU Complaint</h3>
+          </div>
+          <div class="menu">ภาพรวม</div>
+          <div class="menu">เรื่องร้องเรียน</div>
+          <div class="menu">ประเภทเรื่องร้องเรียน</div>
+          <div class="menu">อีเมลผู้รับผิดชอบ</div>
+          <div class="menu">ผู้ดูแลระบบ</div>
+        </aside>
+        <div class="content">
+          <h2>ภาพรวมระบบ</h2>
+          <div class="stats">
+            <div class="stat">ทั้งหมด<b>128</b></div>
+            <div class="stat">เรื่องใหม่<b>12</b></div>
+            <div class="stat">กำลังตรวจสอบ<b>19</b></div>
+            <div class="stat">ดำเนินการแล้ว<b>97</b></div>
+          </div>
+          <h3>รายการล่าสุด</h3>
+          <table>
+            <tr><th>เลขที่เรื่อง</th><th>ประเภท</th><th>สถานะ</th></tr>
+            <tr><td>SC-20261008-A1B2C3</td><td>ด้านวิชาการ</td><td>new</td></tr>
+            <tr><td>SC-20261007-D4E5F6</td><td>ด้านบุคลากรและสวัสดิการ</td><td>in_review</td></tr>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{
+      document.querySelectorAll('.tabs button,.panel').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+      document.getElementById(b.dataset.t).classList.add('active');
+    });
+  </script>
+</body>
+</html>
